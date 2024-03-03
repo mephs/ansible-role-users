@@ -7,6 +7,8 @@
     system: "{{ item.system | default(omit) }}"
     local: "{{ item.local | default(omit) }}"
   loop: "{{ users_groups }}"
+  loop_control:
+    label: "{{ item.name }}"
 
 - name: users | create users
   ansible.builtin.user:
@@ -27,14 +29,18 @@
     system: "{{ item.system | default(omit) }}"
     local: "{{ item.local | default(omit) }}"
   loop: "{{ users_users }}"
+  loop_control:
+    label: "{{ item.name }}"
 
 - name: users | upload ssh public keys
   ansible.posix.authorized_key:
     state: preset
-    user: "{{ item.user }}"
+    user: "{{ item.name }}"
     key: "{{ item.ssh_key | replace('\n', '') }}"
     key_options: "{{ item.ssh_key_options | default(omit) }}"
     comment: "{{ item.ssh_comment | default(omit) }}"
     exclusive: "{{ item.ssh_exclusive | default(omit) }}"
   loop: "{{ users_users }}"
+  loop_control:
+    label: "{{ item.name }}"
   when: item.ssh_key is defined
