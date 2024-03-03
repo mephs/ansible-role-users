@@ -1,0 +1,17 @@
+---
+- name: users | scrape all users from /etc/passwd
+  ansible.builtin.getent:
+    database: passwd
+
+- name: users | remove unwanted users with uid >= 1000 from node except 'nobody'
+  ansible.builtin.user:
+    state: absent
+    name: "{{ item }}"
+    force: "{{ users_remove_force }}"
+    remove: "{{ users_remove_home }}"
+  loop: "{{ ansible_facts.getent_passwd |
+    dict2items |
+    json_query('[?to_number(value[1]) >= `1000`].key') }}"
+  when:
+    - not item in (users_users | map(attribute='name'))
+    - item != "nobody"
