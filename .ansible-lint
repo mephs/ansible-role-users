@@ -1,0 +1,15 @@
+---
+exclude_paths:
+  - .git
+  - .ansible-lint
+  - .yamllint
+
+skip_list:
+  - name[casing]
+  - meta[company]
+  - yaml
+
+enable_list:
+  - fqcn-builtins
+
+use_default_rules: true

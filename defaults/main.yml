@@ -1,2 +1,5 @@
 ---
-# defaults file for ansible.users
+users_groups: []
+users_users: []
+users_remove_force: false
+users_remove_home: false

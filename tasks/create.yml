@@ -1,0 +1,40 @@
+---
+- name: users | create groups
+  ansible.builtin.group:
+    state: present
+    name: "{{ item.name }}"
+    gid: "{{ item.gid | default(omit) }}"
+    system: "{{ item.system | default(omit) }}"
+    local: "{{ item.local | default(omit) }}"
+  loop: "{{ users_groups }}"
+
+- name: users | create users
+  ansible.builtin.user:
+    state: present
+    name: "{{ item.name }}"
+    password: "{{ item.password | default(omit) }}"
+    shell: "{{ item.shell | default('/bin/bash') }}"
+    uid: "{{ item.uid | default(omit) }}"
+    comment: "{{ item.comment | default(omit) }}"
+    home: "{{ item.home | default(omit) }}"
+    expires: "{{ item.expires | default(omit) }}"
+    group: "{{ item.group | default(omit) }}"
+    groups: "{{ item.groups | default(omit) }}"
+    append: "{{ item.append | default(omit) }}"
+    create_home: "{{ item.create_home | default(omit) }}"
+    update_password: "{{ item.update_password | default(omit) }}"
+    non_unique: "{{ item.non_unique | default(omit) }}"
+    system: "{{ item.system | default(omit) }}"
+    local: "{{ item.local | default(omit) }}"
+  loop: "{{ users_users }}"
+
+- name: users | upload ssh public keys
+  ansible.posix.authorized_key:
+    state: preset
+    user: "{{ item.user }}"
+    key: "{{ item.ssh_key | replace('\n', '') }}"
+    key_options: "{{ item.ssh_key_options | default(omit) }}"
+    comment: "{{ item.ssh_comment | default(omit) }}"
+    exclusive: "{{ item.ssh_exclusive | default(omit) }}"
+  loop: "{{ users_users }}"
+  when: item.ssh_key is defined

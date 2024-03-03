@@ -1,2 +1,6 @@
 ---
-# tasks file for ansible.users
+- name: users | create users
+  ansible.builtin.import_tasks: create.yml
+
+- name: users | delete users
+  ansible.builtin.import_tasks: delete.yml
