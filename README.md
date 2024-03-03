@@ -6,7 +6,9 @@ Manage users and groups on Linux nodes.
 
 ## Requirements
 
-- [community.posix](https://galaxy.ansible.com/ui/repo/published/ansible/posix/)
+- [community.posix](https://galaxy.ansible.com/ui/repo/published/ansible/posix/) ansible collection
+
+- [jmespath](https://pypi.org/project/jmespath/) python package
 
 ## Role Variables
 
