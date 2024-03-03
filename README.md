@@ -34,9 +34,9 @@ Manage users and groups on Linux nodes.
 | `users_users[*].system` | bool | `false` | User will be created as a system account. |
 | `users_users[*].local` | bool | `false` | Forces the use of “local” command alternatives on platforms that implement it. |
 | `users_users[*].ssh_key` | str | `""` | SSH public key. Can be multiline. |
-| `users_users[*].ssh_key_options` | str | `""` | SSH key options. |
-| `users_users[*].ssh_comment` | str | `""` | Rewrite the comment on the publik key. |
-| `users_users[*].ssh_exclusive` | bool | `false` | Remove all other keys from the authorized_keys file. |
+| `users_users[*].ssh_key_options` | str | `""` | SSH key options. Ignored when `ssh_key` is empty. |
+| `users_users[*].ssh_comment` | str | `""` | Rewrite the comment on the publik key. Ignored when `ssh_key` is empty. |
+| `users_users[*].ssh_exclusive` | bool | `false` | Remove all other keys from the authorized_keys file. Ignored when `ssh_key` is empty. |
 | `users_remove_force` | bool | `false` | Forces removal of the user and associated directories. |
 | `users_remove_home` | bool | `false` | Remove directories associated with the user. |
 
