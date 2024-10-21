@@ -33,7 +33,7 @@
 
 - name: users | upload ssh public keys
   ansible.posix.authorized_key:
-    state: preset
+    state: present
     user: "{{ item.name }}"
     key: "{{ item.ssh_key | replace('\n', '') }}"
     key_options: "{{ item.ssh_key_options | default(omit) }}"
