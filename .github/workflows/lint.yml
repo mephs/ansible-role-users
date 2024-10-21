@@ -12,28 +12,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - name: Run yamllint
         uses: ibiqlik/action-yamllint@v3
         with:
           strict: true
-
   ansible_lint:
     name: Ansible Lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Set up Python 3
-        uses: actions/setup-python@v5
-        with:
-          python-version: 3.x
-
-      - name: Install Required Packages
-        run: pip3 install ansible ansible-lint
-
-      - name: Install Ansible Collections Dependencies
-        run: ansible-galaxy install -f -r requirements.yml
-
-      - name: Run Ansible Lint
-        run: ansible-lint --force-color
+      - name: Run ansible-lint
+        uses: ansible/ansible-lint@main
