@@ -1,4 +1,4 @@
-- name: users | create groups
+- name: create | create groups
   ansible.builtin.group:
     state: present
     name: "{{ item.name }}"
@@ -9,7 +9,7 @@
   loop_control:
     label: "{{ item.name }}"
 
-- name: users | create users
+- name: create | create users
   ansible.builtin.user:
     state: present
     name: "{{ item.name }}"
@@ -31,7 +31,7 @@
   loop_control:
     label: "{{ item.name }}"
 
-- name: users | upload ssh public keys
+- name: create | upload ssh public keys
   ansible.posix.authorized_key:
     state: present
     user: "{{ item.name }}"

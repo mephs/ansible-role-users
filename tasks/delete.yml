@@ -1,8 +1,8 @@
-- name: users | scrape all users from /etc/passwd
+- name: delete | scrape all users from /etc/passwd
   ansible.builtin.getent:
     database: passwd
 
-- name: users | remove unwanted users with uid >= 1000 from node except 'nobody'
+- name: delete | remove unwanted users with uid >= 1000 from node except 'nobody'
   ansible.builtin.user:
     state: absent
     name: "{{ item }}"
