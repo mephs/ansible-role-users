@@ -1,4 +1,4 @@
-- name: create | create groups
+- name: create | manage groups
   ansible.builtin.group:
     state: present
     name: "{{ item.name }}"
@@ -9,7 +9,7 @@
   loop_control:
     label: "{{ item.name }}"
 
-- name: create | create users
+- name: create | manage users
   ansible.builtin.user:
     state: present
     name: "{{ item.name }}"

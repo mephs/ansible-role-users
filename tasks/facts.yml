@@ -1,4 +1,4 @@
-- name: facts | create ansible custom fact directory
+- name: facts | ensure ansible custom fact directory existed
   ansible.builtin.file:
     path: /etc/ansible/facts.d
     state: directory
@@ -6,14 +6,10 @@
     group: root
     mode: "0755"
 
-- name: facts | create users fact file
+- name: facts | template users fact file
   ansible.builtin.template:
     src: users.fact.j2
     dest: /etc/ansible/facts.d/users.fact
     owner: root
     group: root
     mode: "0644"
-
-- name: facts | load custom facts
-  ansible.builtin.setup:
-    filter: ansible_local
