@@ -1,0 +1,6 @@
+{{
+{
+"managed_groups": users_groups | map(attribute="name"),
+"managed_users": users_users | map(attribute="name")
+} | to_nice_json
+}}

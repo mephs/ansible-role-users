@@ -1,5 +1,8 @@
-- name: users | create users and groups
+- name: manage custom facts
+  ansible.builtin.import_tasks: facts.yml
+
+- name: create users and groups
   ansible.builtin.import_tasks: create.yml
 
-- name: users | delete users
+- name: delete users
   ansible.builtin.import_tasks: delete.yml
