@@ -61,12 +61,14 @@ argument_specs:
             description: Expiry time for the user in epoch.
           group:
             type: str
-            description: Specifies the user's primary group.
+            description:
+              - Specifies the user's primary group.
+              - If empty, a group with the username will be created.
           groups:
             type: list
             description:
               - List of additional user groups.
-              - By default, the user is removed from all other groups. Configure append to modify this.
+              - By default, the user is removed from all other groups except primary. Configure append to modify this.
           append:
             type: bool
             default: false
