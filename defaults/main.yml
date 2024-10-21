@@ -1,4 +1,27 @@
+# List of the groups to manage
 users_groups: []
+
+# Example:
+# users_groups:
+#   - name: group1
+#     gid: 1500
+#   - name: group2
+#     system: true
+
+# List of the users to manage
 users_users: []
-users_remove_force: false
+
+# Example:
+# users_users:
+#   - name: user1
+#     comment: test user for ansible
+#     create_home: true
+#     system: true
+#     groups: [users]
+#     ssh_key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIADg2n4v733gUH/dC4PZyQlvpFdjQyF8thJwe4mfn8qm test
+
+# Remove user's home directory
 users_remove_home: false
+
+# Forced removal of users and groups
+users_remove_force: false
