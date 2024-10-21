@@ -1,14 +1,26 @@
-- name: delete | scrape all users from /etc/passwd
-  ansible.builtin.getent:
-    database: passwd
+- name: delete | get a lists of users and groups to delete
+  ansible.builtin.set_fact:
+    __groups_to_delete: "{{ ansible_local.users.managed_groups | difference(users_groups | map(attribute='name')) }}"
+    __users_to_delete: "{{ ansible_local.users.managed_users | difference(users_users | map(attribute='name')) }}"
+  when: ansible_local.users is defined
 
-- name: delete | remove unwanted users with uid >= 1000 from node except 'nobody'
+- name: delete | remove users
   ansible.builtin.user:
     state: absent
     name: "{{ item }}"
     force: "{{ users_remove_force }}"
     remove: "{{ users_remove_home }}"
-  loop: "{{ ansible_facts.getent_passwd | dict2items | json_query('[?to_number(value[1]) >= `1000`].key') }}"
+  loop: "{{ __users_to_delete }}"
   when:
-    - not item in (users_users | map(attribute='name'))
-    - item != "nobody"
+    - ansible_local.users.managed_users is defined
+    - ansible_local.users.managed_users | length > 0
+
+- name: delete | remove groups
+  ansible.builtin.group:
+    state: absent
+    name: "{{ item }}"
+    force: "{{ users_remove_force }}"
+  loop: "{{ __groups_to_delete }}"
+  when:
+    - ansible_local.users.managed_groups is defined
+    - ansible_local.users.managed_groups | length > 0
