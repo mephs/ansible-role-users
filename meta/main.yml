@@ -1,20 +1,27 @@
----
 galaxy_info:
   role_name: users
-  author: rusmephist
-  description: Manage users and groups on Linux nodes.
+  namespace: mephs
+  author: Mikhail Vorontsov
+  description: Ansible role for managing users and groups on Linux hosts.
   license: MIT
   min_ansible_version: "2.11"
   platforms:
-    - name: Fedora
+    - name: Debian
       versions:
-        - all
+        - bookworm
+        - bullseye
+        - buster
     - name: Ubuntu
       versions:
-        - all
-    - name: Rocky
+        - noble
+        - jammy
+        - focal
+        - bionic
+    - name: EL
       versions:
-        - all
+        - "7"
+        - "8"
+        - "9"
 
   galaxy_tags:
     - system
