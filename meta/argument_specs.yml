@@ -1,0 +1,117 @@
+argument_specs:
+  main:
+    short_description: The main entry point for the users role.
+    description: Ansible role for managing users and groups on Linux hosts.
+    author: Mikhail Vorontsov
+    options:
+      users_groups:
+        type: list
+        elements: dict
+        description: A list of groups.
+        default: []
+        options:
+          name:
+            type: str
+            required: true
+            description: Group name.
+          gid:
+            type: int
+            description: Specify the group ID.
+          system:
+            type: bool
+            default: false
+            description: Mark group as system.
+          local:
+            type: bool
+            default: false
+            description: Use of alternative “local” commands.
+      users_users:
+        type: list
+        elements: dict
+        description: A list of users.
+        default: []
+        options:
+          name:
+            type: str
+            required: true
+            description: User name.
+          password:
+            type: str
+            description: User password.
+            no_log: true
+          shell:
+            type: str
+            default: /bin/bash
+            description: User shell.
+          uid:
+            type: int
+            description: Specify the user ID.
+          comment:
+            type: str
+            description: User description.
+          home:
+            type: str
+            description: User home directory.
+          create_home:
+            type: bool
+            default: true
+            description: Home directory creation disabled when set to false.
+          expires:
+            type: float
+            description: Expiry time for the user in epoch.
+          group:
+            type: str
+            description: Specifies the user's primary group.
+          groups:
+            type: list
+            description:
+              - List of additional user groups.
+              - By default, the user is removed from all other groups. Configure append to modify this.
+          append:
+            type: bool
+            default: false
+            description:
+              - If true, add the user to the groups specified in groups.
+              - If false, add the user to the groups specified in groups and remove from all others.
+          update_password:
+            type: str
+            default: always
+            choices:
+              - always
+              - on_create
+            description:
+              - always will update passwords if they differ.
+              - on_create will only set the password for newly created users.
+          non_unique:
+            type: bool
+            default: false
+            description: Allows non-unique user ID.
+          system:
+            type: bool
+            default: false
+            description: Mark user as system.
+          local:
+            type: bool
+            default: false
+            description: Use of alternative “local” commands.
+          ssh_key:
+            type: str
+            description: The SSH public key added for the user.
+          ssh_key_options:
+            type: str
+            description: SSH key options in the authorized_keys file.
+          ssh_comment:
+            type: str
+            description: Comment of the public key.
+          ssh_exclusive:
+            type: bool
+            default: false
+            description: Remove all other SSH keys from the authorized_keys file.
+      users_remove_force:
+        type: bool
+        default: false
+        description: Forces removal of the user and associated directories.
+      users_remove_home:
+        type: bool
+        default: false
+        description: Remove directories associated with the user.
