@@ -1,0 +1,12 @@
+yaml-files:
+  - '*.yaml'
+  - '*.yml'
+  - .yamllint
+  - .ansible-lint
+  - .yamlfmt
+
+rules:
+  document-start:
+    present: false
+  line-length:
+    max: 160
