@@ -1,4 +1,3 @@
----
 - name: users | create users and groups
   ansible.builtin.import_tasks: create.yml
 

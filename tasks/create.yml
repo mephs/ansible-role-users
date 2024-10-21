@@ -1,4 +1,3 @@
----
 - name: users | create groups
   ansible.builtin.group:
     state: present
